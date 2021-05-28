@@ -1,5 +1,5 @@
-Создать БД путем запуска CreateDataBase.py
-Поместить SECRET_KEY в 16 строку app.py
+1. Создать БД путем запуска CreateDataBase.py
+2. Поместить SECRET_KEY в 16 строку app.py
 Прописать global_salt в 22 строку app.py
 Прописать domen (домен на котором будет работать приложение) в 23 строку app.py
 Прописать domen  в 56 строку templates/account.html
