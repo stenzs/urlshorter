@@ -53,7 +53,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(currency, index) in info" class="currency">
-                                    <td name = "link" id = "link" >http://urlsshorter.herokuapp.com/{{ '{{ currency.short_url }}' }}</td>
+                                    <td name = "link" id = "link" >domen/{{ '{{ currency.short_url }}' }}</td>
                                     <td>{{ '{{ currency.original_url }}' }}</td>
                                     <td>{{ '{{ currency.type_url }}' }}</td>
                                     <td>&#160&#160&#160&#160&#160&#160&#160{{ '{{ currency.count }}' }}</td>
@@ -83,12 +83,12 @@
             },
         mounted() {
         axios
-        .get('http://urlsshorter.herokuapp.com/get_links')
+        .get('domen/get_links')
         .then(response => (this.info = response.data.links));
             },
         methods: {
         deleteData: function(currency, index) {
-        axios.delete('http://urlsshorter.herokuapp.com/delete_links/'+ currency.short_url)
+        axios.delete('domen/delete_links/'+ currency.short_url)
         .then(location.reload())
         .catch(error => {this.errors = error.response.data.errors;});
             }
