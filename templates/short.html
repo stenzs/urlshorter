@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Сокращение ссылок</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" />
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='img/apple-touch-icon-57x57.png') }}"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='img/apple-touch-icon-72x72.png') }}"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='img/apple-touch-icon-76x76.png') }}"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='img/apple-touch-icon-114x114.png')}}"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='img/apple-touch-icon-120x120.png')}}"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='img/apple-touch-icon-144x144') }}"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='img/apple-touch-icon-152x152') }}"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/apple-touch-icon-180x180') }}"/>
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script>
+        function myFunction() {
+      var copyText = document.getElementById("shortlink");
+      copyText.select();
+      document.execCommand("copy");
+        }
+    </script>
+</head>
+<body>
+    <form method="post">
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3  ">
+                <a class="d-flex align-items-center  text-dark text-decoration-none"></a>
+                <div class="col-md-4 text-end">
+                    <a href={{res2}} class="btn btn-outline-primary me-2">{{res3}}</a>
+                    <a href={{res4}} class="btn btn-primary">{{res5}}</a>
+                </div>
+            </header>
+        </div>
+    </form>
+         <hr class="my-4">
+    <div class="container">
+        <div class="py-4 text-center">
+            <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='img/105.jpg') }}" alt="" width="713" height="125">
+            <h2>Сервис сокращения ссылок</h2>
+        </div>
+        <div class="pb-1">
+            <h1>{{res1}}</h1>
+            <label for="originallink" class="form-label">{{message}}</label>
+            <input class="form-control" type="text" id="shortlink" placeholder="Здесь будет ваша ссылка" value="{{res}}" readonly>
+        </div>
+        <button class="btn btn-success" onclick="myFunction()">Скопировать</button>
+    </div>
+    <br>
+    <form method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="user-title">
+                        <label for="originallink" class="form-label">Введите ссылку</label>
+                        <input type="url" class="form-control" id="originallink" name="originallink" placeholder="google.com"  value="http://" required maxlength="128">
+                    </div>
+                </div>
+                <div class="col-md-4 p-4 right-col">
+                    <button class="w-100 btn btn-primary btn-lg" name="short" value="shorting" type="submit">Сократить</button>
+                </div>
+            </div>
+            <label class="form-label">Алиас<span  class="text-muted"> (Опционально)</span></label>
+            <input type="text" class="form-control" name="alias" placeholder="myshortlink" pattern="^[-A-Za-zА-Яа-яЁё0-9_]+$" title="Минимум {{res6}} символа. Допустимые значения -A-Za-zА-Яа-яЁё0-9_ без пробелов." value="" minlength={{res6}} maxlength="128">
+            <div class="m-4">
+                <div class="form-check">
+                    <input id="public" value="public" name="acces" type="radio" class="form-check-input" checked required>
+                    <label class="form-check-label" for="public">Публичная ссылка</label>
+                </div>
+                <div class="form-check">
+                    <input id="register" value="register" name="acces" type="radio" class="form-check-input" required>
+                    <label class="form-check-label" for="register">Только для авторизованных пользователей</label>
+                </div>
+                <div class="form-check">
+                    <input id="private" value="private" name="acces" type="radio" class="form-check-input" required>
+                    <label class="form-check-label" for="private">Приватная ссылка (только для вас)</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+        </div>
+        <hr class="my-4">
+        <footer class="my-5 text-muted text-center text-small">
+            <p class="mb-1">2021</p>
+        </footer>
+    </form>
+</body>

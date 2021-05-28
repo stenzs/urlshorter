@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Мои ссылки</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.2">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" />
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='img/apple-touch-icon-57x57.png') }}"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='img/apple-touch-icon-72x72.png') }}"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='img/apple-touch-icon-76x76.png') }}"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='img/apple-touch-icon-114x114.png')}}"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='img/apple-touch-icon-120x120.png')}}"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='img/apple-touch-icon-144x144') }}"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='img/apple-touch-icon-152x152') }}"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/apple-touch-icon-180x180') }}"/>
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/vue.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/axios.min.js') }}"></script>
+</head>
+<body>
+    <form method="post">
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3  ">
+                <a class="d-flex align-items-center  text-dark text-decoration-none"></a>
+                <div class="col-md-4 text-end">
+                    <a href=/ class="btn btn-outline-primary me-2">На главную</a>
+                </div>
+            </header>
+        </div>
+    </form>
+    <hr class="my-4">
+    <div class="container">
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <h1>Ваши ссылки:</h1>
+          </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <br><br>
+                    <div id="app">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Ссылка</th>
+                                    <th scope="col">Ресурс</th>
+                                    <th scope="col">Тип</th>
+                                    <th scope="col">Переходов</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(currency, index) in info" class="currency">
+                                    <td name = "link" id = "link" >http://urlsshorter.herokuapp.com/{{ '{{ currency.short_url }}' }}</td>
+                                    <td>{{ '{{ currency.original_url }}' }}</td>
+                                    <td>{{ '{{ currency.type_url }}' }}</td>
+                                    <td>&#160&#160&#160&#160&#160&#160&#160{{ '{{ currency.count }}' }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-xs"  @click="deleteData(currency, index) in info">&#160Удалить&#160</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="my-4">
+    <footer class="my-5 text-muted text-center text-small">
+        <p class="mb-1">2021</p>
+    </footer>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+        return {
+        info: null
+            };
+            },
+        mounted() {
+        axios
+        .get('http://urlsshorter.herokuapp.com/get_links')
+        .then(response => (this.info = response.data.links));
+            },
+        methods: {
+        deleteData: function(currency, index) {
+        axios.delete('http://urlsshorter.herokuapp.com/delete_links/'+ currency.short_url)
+        .then(location.reload())
+        .catch(error => {this.errors = error.response.data.errors;});
+            }
+            }
+    });
+</script>
+</html>
